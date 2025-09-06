@@ -90,4 +90,21 @@ app.delete("/api/transactions/:id",async(req,res)=>{
         res.status(500).json({ error: "Internal server error" });
     }   
 });
-
+app.get("/api/transactions/summary/:user_id",async(req,res)=>{
+    try {
+        const {user_id}=req.params;
+        const balanceresult=await sql`
+        SELECT COALESCE(SUM(amount),0) AS balance FROM transactions WHERE user_id=${user_id}
+        `;
+        const incomeResult=await sql`
+        SELECT COALESCE(SUM(amount),0) AS income FROM transactions WHERE user_id=${user_id} AND amount>0
+        `;
+        const expenseResult=await sql`
+        SELECT COALESCE(SUM(amount),0) AS expense FROM transactions WHERE user_id=${user_id} AND amount<0
+        `;
+        res.status(200).json({success: true,data: {balance: balanceresult[0].balance,income: incomeResult[0].income,expense: expenseResult[0].expense}});
+    } catch (error) {
+        console.error("Error fetching transaction summary:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
