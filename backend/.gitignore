@@ -1,0 +1,35 @@
+node_modules/
+.env
+dist/
+*.log
+*.sqlite
+*.sqlite3
+*.db
+*.db-shm
+*.db-wal
+
+# OS generated files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# IDEs and editors
+
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.code-workspace
+*.iml
+*.ipr
+*.iws
+*.class
+*.jar
+*.war
+*.ear
+*.dbmdl
+*.jmx
+*.log
